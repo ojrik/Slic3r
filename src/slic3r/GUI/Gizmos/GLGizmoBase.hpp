@@ -32,9 +32,7 @@ class ModelObject;
 namespace GUI {
 
 
-#if ENABLE_IMGUI
 class ImGuiWrapper;
-#endif // ENABLE_IMGUI
 
 
 class GLGizmoBase
@@ -106,9 +104,7 @@ protected:
     float m_drag_color[3];
     float m_highlight_color[3];
     mutable std::vector<Grabber> m_grabbers;
-#if ENABLE_IMGUI
     ImGuiWrapper* m_imgui;
-#endif // ENABLE_IMGUI
 
 public:
 #if ENABLE_SVG_ICONS
@@ -156,14 +152,7 @@ public:
 
     void render(const GLCanvas3D::Selection& selection) const { on_render(selection); }
     void render_for_picking(const GLCanvas3D::Selection& selection) const { on_render_for_picking(selection); }
-
-#if !ENABLE_IMGUI
-    virtual void create_external_gizmo_widgets(wxWindow *parent);
-#endif // not ENABLE_IMGUI
-
-#if ENABLE_IMGUI
     void render_input_window(float x, float y, float bottom_limit, const GLCanvas3D::Selection& selection) { on_render_input_window(x, y, bottom_limit, selection); }
-#endif // ENABLE_IMGUI
 
 protected:
     virtual bool on_init() = 0;
@@ -179,10 +168,7 @@ protected:
     virtual void on_update(const UpdateData& data, const GLCanvas3D::Selection& selection) = 0;
     virtual void on_render(const GLCanvas3D::Selection& selection) const = 0;
     virtual void on_render_for_picking(const GLCanvas3D::Selection& selection) const = 0;
-
-#if ENABLE_IMGUI
     virtual void on_render_input_window(float x, float y, float bottom_limit, const GLCanvas3D::Selection& selection) {}
-#endif // ENABLE_IMGUI
 
     // Returns the picking color for the given id, based on the BASE_ID constant
     // No check is made for clashing with other picking color (i.e. GLVolumes)
